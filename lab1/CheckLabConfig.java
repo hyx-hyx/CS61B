@@ -3,6 +3,10 @@ import java.io.File;
 public class CheckLabConfig {
 	public static void checkConfig(boolean isWindows) {
 		String repoVariableName = "REPO_DIR";
+		java.util.Map<String,String> map=System.getenv();
+		for(String key:map.keySet()){
+			System.out.println(key);
+		}
 		String repoDir = System.getenv(repoVariableName);
 		checkVariableNotNull(repoDir, repoVariableName);
 		System.out.println("Validating your " + repoVariableName + 
