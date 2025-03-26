@@ -17,6 +17,26 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         item = (T[]) new Object[maxsize];
     }
 
+    public ArrayDeque(int capacity) {
+        size = 0;
+        nextLast = capacity / 2;
+        nextFirst = nextLast - 1;
+        maxsize = capacity;
+        item = (T[]) new Object[maxsize];
+    }
+
+    public ArrayDeque(int capacity, T value) {
+        size = capacity;
+        nextLast = capacity / 2;
+        nextFirst = nextLast - 1;
+        maxsize = capacity;
+        item = (T[]) new Object[maxsize];
+        for (int i = 0; i < maxsize; ++i) {
+            item[i] = value;
+        }
+    }
+
+
     private int resize() {
         T[] temp = (T[]) new Object[maxsize * 2];
         for (int i = 0; i < maxsize; ++i) {
@@ -87,14 +107,13 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             nextLast %= maxsize;
         }
         T removed = item[nextLast];
-
         size -= 1;
         return removed;
     }
 
     @Override
     public T get(int index) {
-        int curindex = nextFirst + 1;
+        int curindex = (nextFirst + 1) % maxsize;
         while (index != 0) {
             curindex = (curindex + 1) % maxsize;
             index--;
