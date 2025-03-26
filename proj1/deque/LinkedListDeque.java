@@ -1,13 +1,9 @@
 package deque;
 
-import net.sf.saxon.om.Item;
-import org.checkerframework.framework.qual.LiteralKind;
-
 import java.util.Iterator;
-import java.util.zip.CRC32;
 
 
-public class LinkedListDeque<T> implements Deque<T>,Iterable<T> {
+public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
 
     private class LinkedListNode<T> {
         LinkedListNode<T> prev;
@@ -15,12 +11,14 @@ public class LinkedListDeque<T> implements Deque<T>,Iterable<T> {
         LinkedListNode<T> next;
 
         public LinkedListNode() {
-            prev = next = this;
+            prev = this;
+            next = this;
             item = null;
         }
 
         public LinkedListNode(T e) {
-            prev = next = this;
+            prev = this;
+            next = this;
             item = e;
         }
     }
@@ -67,8 +65,9 @@ public class LinkedListDeque<T> implements Deque<T>,Iterable<T> {
     }
 
     public T removeFirst() {
-        if (size == 0)
+        if (size == 0) {
             return null;
+        }
         LinkedListNode<T> removedNode = sentinel.next;
         removedNode.next.prev = sentinel;
         sentinel.next = removedNode.next;
@@ -78,8 +77,9 @@ public class LinkedListDeque<T> implements Deque<T>,Iterable<T> {
     }
 
     public T removeLast() {
-        if (size == 0)
+        if (size == 0) {
             return null;
+        }
         LinkedListNode<T> removedNode = sentinel.prev;
         removedNode.prev.next = sentinel;
         sentinel.prev = removedNode.prev;
@@ -117,6 +117,7 @@ public class LinkedListDeque<T> implements Deque<T>,Iterable<T> {
             node = sentinel;
         }
     }
+
     @Override
     public Iterator<T> iterator() {
         return new LinkedListDequeIterator();
@@ -139,14 +140,15 @@ public class LinkedListDeque<T> implements Deque<T>,Iterable<T> {
         return false;
     }
 
-    private T getRecursiveHelper(LinkedListNode<T> cur,int index){
-        if(index==0){
+    private T getRecursiveHelper(LinkedListNode<T> cur, int index) {
+        if (index == 0) {
             return cur.item;
         }
-        return getRecursiveHelper(cur.next,index-1);
+        return getRecursiveHelper(cur.next, index - 1);
     }
+
     public T getRecursive(int index) {
-        LinkedListNode<T> cur=sentinel;
-        return getRecursiveHelper(cur,index);
+        LinkedListNode<T> cur = sentinel;
+        return getRecursiveHelper(cur, index);
     }
 }
