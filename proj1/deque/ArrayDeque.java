@@ -18,6 +18,9 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     }
 
     private int resize(int newsize) {
+        if (newsize < 8) {
+            return 8;
+        }
         T[] temp = (T[]) new Object[newsize];
         for (int i = 0; i < size; ++i) {
             temp[i] = item[(i + nextFirst + 1) % maxsize];
@@ -129,7 +132,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     private class ArrayDequeIterator implements Iterator<T> {
         int index;
 
-        public ArrayDequeIterator() {
+        ArrayDequeIterator() {
             index = (nextFirst + 1) % maxsize;
         }
 
