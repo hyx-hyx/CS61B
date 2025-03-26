@@ -3,7 +3,7 @@ package deque;
 import java.util.Iterator;
 
 public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
-    private int size ;
+    private int size;
     private int nextFirst;
     private T[] item;
     private int nextLast;
@@ -31,7 +31,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     @Override
     public void addFirst(T it) {
         if (size == maxsize) {
-            maxsize = resize(maxsize*2);
+            maxsize = resize(maxsize * 2);
         }
         this.item[nextFirst] = it;
         size += 1;
@@ -41,7 +41,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     @Override
     public void addLast(T it) {
         if (size == maxsize) {
-            maxsize = resize(maxsize*2);
+            maxsize = resize(maxsize * 2);
         }
         this.item[nextLast] = it;
         size += 1;
@@ -73,8 +73,8 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         T removed = item[nextFirst];
 
         size -= 1;
-        if(size==maxsize/2){
-            maxsize=resize(maxsize/2);
+        if (size == maxsize / 2) {
+            maxsize = resize(maxsize / 2);
         }
         return removed;
     }
@@ -91,8 +91,8 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         }
         T removed = item[nextLast];
         size -= 1;
-        if(size==maxsize/2){
-            maxsize=resize(maxsize/2);
+        if (size == maxsize / 2) {
+            maxsize = resize(maxsize / 2);
         }
         return removed;
     }
