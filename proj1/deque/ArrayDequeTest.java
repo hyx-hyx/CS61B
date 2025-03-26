@@ -132,6 +132,23 @@ public class ArrayDequeTest {
         for (double i = 999999; i > 500000; i--) {
             assertEquals("Should have the same value", i, (double) lld1.removeLast(), 0.0);
         }
-
+    }
+    @Test
+    public void equalTrueTest(){
+        Boolean expect_result=true;
+        ArrayDeque<Integer>  lld1 = new ArrayDeque<Integer>();
+        ArrayDeque<Integer>  lld2 = new ArrayDeque<Integer>();
+        lld1.addFirst(1);
+        lld2.addFirst(1);
+        assertEquals(expect_result,lld1.equals(lld2));
+    }
+    @Test
+    public void equalFalseTest(){
+        Boolean expect_result=false;
+        ArrayDeque<Integer>  lld1 = new ArrayDeque<Integer>();
+        ArrayDeque<Integer>  lld2 = new ArrayDeque<Integer>();
+        lld1.addFirst(1);
+        lld2.addFirst(2);
+        assertEquals(expect_result,lld1.equals(lld2));
     }
 }

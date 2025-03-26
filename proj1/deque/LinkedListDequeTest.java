@@ -135,6 +135,24 @@ public class LinkedListDequeTest {
         }
 
     }
+    @Test
+    public void equalTrueTest(){
+        Boolean expect_result=true;
+        LinkedListDeque<Integer>  lld1 = new LinkedListDeque<Integer>();
+        LinkedListDeque<Integer>  lld2 = new LinkedListDeque<Integer>();
+        lld1.addFirst(1);
+        lld2.addFirst(1);
+        assertEquals(expect_result,lld1.equals(lld2));
+    }
+    @Test
+    public void equalFalseTest(){
+        Boolean expect_result=false;
+        LinkedListDeque<Integer>  lld1 = new LinkedListDeque<Integer>();
+        LinkedListDeque<Integer>  lld2 = new LinkedListDeque<Integer>();
+        lld1.addFirst(1);
+        lld2.addFirst(2);
+        assertEquals(expect_result,lld1.equals(lld2));
+    }
 }
 
 
