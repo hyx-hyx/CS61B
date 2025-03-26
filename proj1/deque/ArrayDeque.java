@@ -5,8 +5,10 @@ import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Iterator;
 
-public class ArrayDeque<T> implements Deque<T> {
+public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     private int size=0;
     private int nextFirst=0;
     private T[] item;
@@ -22,10 +24,9 @@ public class ArrayDeque<T> implements Deque<T> {
     }
     private int resize(){
         T[] temp=(T[])new Object[maxsize*2];
-        for(int i=0;i<nextLast;++i)
-            temp[i]=item[i];
-        for(int i=nextFirst+1;i<maxsize;++i)
-            temp[i+maxsize]=item[i];
+        for(int i=0;i<maxsize;++i)
+            temp[i]=item[(i+nextFirst+1)%maxsize];
+        nextFirst=maxsize*2-1;nextLast=maxsize;
         item=temp;
         return maxsize*2;
     }
@@ -36,7 +37,7 @@ public class ArrayDeque<T> implements Deque<T> {
         }
         this.item[nextFirst]=item;
         size+=1;
-        nextFirst=(nextFirst-1+size)%maxsize;
+        nextFirst=(nextFirst-1+maxsize)%maxsize;
     }
 
     @Override
@@ -50,18 +51,16 @@ public class ArrayDeque<T> implements Deque<T> {
     }
 
     @Override
-    public boolean isEmpty() {
-        return size==0;
-    }
-
-    @Override
     public int size() {
         return size;
     }
 
     @Override
     public void printDeque() {
-
+        for(T t:this){
+            System.out.print(t+" ");
+        }
+        System.out.println();
     }
 
     @Override
@@ -93,6 +92,33 @@ public class ArrayDeque<T> implements Deque<T> {
 
     @Override
     public T get(int index) {
-        return null;
+        int curindex=nextFirst+1;
+        while(index!=0){
+            curindex=(curindex+1)%maxsize;
+            index--;
+        }
+        return item[curindex];
+    }
+
+    private class ArrayDequeIterator implements Iterator<T> {
+        int index;
+        public ArrayDequeIterator(){
+            index=nextFirst+1;
+        }
+        @Override
+        public boolean hasNext() {
+            return index!=nextLast;
+        }
+
+        @Override
+        public T next() {
+            T v=item[index];
+            index++;
+            return v;
+        }
+    }
+    @Override
+    public Iterator<T> iterator() {
+        return new ArrayDequeIterator();
     }
 }

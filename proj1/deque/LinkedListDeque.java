@@ -23,7 +23,6 @@ public class LinkedListDeque<T> implements Deque<T>,Iterable<T> {
             prev = next = this;
             item = e;
         }
-
     }
 
     private LinkedListNode<T> sentinel;
@@ -53,10 +52,6 @@ public class LinkedListDeque<T> implements Deque<T>,Iterable<T> {
         sentinel.prev = last;
 
         size += 1;
-    }
-
-    public boolean isEmpty() {
-        return size == 0;
     }
 
     public int size() {
@@ -104,7 +99,7 @@ public class LinkedListDeque<T> implements Deque<T>,Iterable<T> {
         return null;
     }
 
-    private class DequeIterator implements Iterator<T> {
+    private class LinkedListDequeIterator implements Iterator<T> {
         private LinkedListNode<T> node;
 
         @Override
@@ -118,39 +113,40 @@ public class LinkedListDeque<T> implements Deque<T>,Iterable<T> {
             return node.item;
         }
 
-        DequeIterator() {
+        LinkedListDequeIterator() {
             node = sentinel;
         }
     }
     @Override
     public Iterator<T> iterator() {
-        return new DequeIterator();
+        return new LinkedListDequeIterator();
     }
 
     public boolean equals(Object o) {
         Iterator<T> iter1 = iterator();
-        if (!(o instanceof LinkedListDeque)) {
-            return false;
-        }
-        LinkedListDeque<T> other = (LinkedListDeque<T>) o;
-        Iterator<T> iter2 = other.iterator();
-        while (iter1.hasNext()) {
-            if (iter1.hasNext() != iter2.hasNext()) {
-                return false;
+        if (o instanceof LinkedListDeque other) {
+            Iterator<T> iter2 = other.iterator();
+            while (iter1.hasNext()) {
+                if (iter1.hasNext() != iter2.hasNext()) {
+                    return false;
+                }
+                if (iter1.next().equals(iter2.next())) {
+                    return false;
+                }
             }
-            if (iter1.next().equals(iter2.next())) {
-                return false;
-            }
+            return true;
         }
-        return true;
+        return false;
     }
 
-    public T getRecursive(int index) {
-        LinkedListNode<T> curnode = sentinel;
-        while (index >= 0) {
-            curnode = curnode.next;
-            index--;
+    private T getRecursiveHelper(LinkedListNode<T> cur,int index){
+        if(index==0){
+            return cur.item;
         }
-        return curnode.item;
+        return getRecursiveHelper(cur.next,index-1);
+    }
+    public T getRecursive(int index) {
+        LinkedListNode<T> cur=sentinel;
+        return getRecursiveHelper(cur,index);
     }
 }
