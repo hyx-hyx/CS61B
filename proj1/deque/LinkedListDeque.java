@@ -16,7 +16,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
             item = null;
         }
 
-        public LinkedListNode(T e) {
+        LinkedListNode(T e) {
             prev = this;
             next = this;
             item = e;
@@ -90,6 +90,9 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     }
 
     public T get(int index) {
+        if (index >= size) {
+            return null;
+        }
         for (T t : this) {
             if (index == 0) {
                 return t;
@@ -150,6 +153,9 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
 
     public T getRecursive(int index) {
         LinkedListNode<T> cur = sentinel;
+        if (index >= size) {
+            return null;
+        }
         return getRecursiveHelper(cur, index);
     }
 }

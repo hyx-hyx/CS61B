@@ -102,6 +102,9 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
     @Override
     public T get(int index) {
+        if (index >= size) {
+            return null;
+        }
         int curindex = (nextFirst + 1) % maxsize;
         while (index != 0) {
             curindex = (curindex + 1) % maxsize;

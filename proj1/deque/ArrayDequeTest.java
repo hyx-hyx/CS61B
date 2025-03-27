@@ -1,9 +1,12 @@
 package deque;
 
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
-/** Performs some basic linked list tests. */
+/**
+ * Performs some basic linked list tests.
+ */
 public class ArrayDequeTest {
 
     @Test
@@ -84,8 +87,8 @@ public class ArrayDequeTest {
     public void multipleParamTest() {
 
 
-        ArrayDeque<String>  lld1 = new ArrayDeque<String>();
-        ArrayDeque<Double>  lld2 = new ArrayDeque<Double>();
+        ArrayDeque<String> lld1 = new ArrayDeque<String>();
+        ArrayDeque<Double> lld2 = new ArrayDeque<Double>();
         ArrayDeque<Boolean> lld3 = new ArrayDeque<Boolean>();
 
         lld1.addFirst("string");
@@ -133,22 +136,37 @@ public class ArrayDequeTest {
             assertEquals("Should have the same value", i, (double) lld1.removeLast(), 0.0);
         }
     }
+
     @Test
-    public void equalTrueTest(){
-        Boolean expect_result=true;
-        ArrayDeque<Integer>  lld1 = new ArrayDeque<Integer>();
-        ArrayDeque<Integer>  lld2 = new ArrayDeque<Integer>();
+    public void equalTrueTest() {
+        Boolean expect_result = true;
+        ArrayDeque<Integer> lld1 = new ArrayDeque<Integer>();
+        ArrayDeque<Integer> lld2 = new ArrayDeque<Integer>();
         lld1.addFirst(1);
         lld2.addFirst(1);
-        assertEquals(expect_result,lld1.equals(lld2));
+        assertEquals(expect_result, lld1.equals(lld2));
     }
+
     @Test
-    public void equalFalseTest(){
-        Boolean expect_result=false;
-        ArrayDeque<Integer>  lld1 = new ArrayDeque<Integer>();
-        ArrayDeque<Integer>  lld2 = new ArrayDeque<Integer>();
+    public void equalFalseTest() {
+        Boolean expect_result = false;
+        ArrayDeque<Integer> lld1 = new ArrayDeque<Integer>();
+        ArrayDeque<Integer> lld2 = new ArrayDeque<Integer>();
         lld1.addFirst(1);
         lld2.addFirst(2);
-        assertEquals(expect_result,lld1.equals(lld2));
+        assertEquals(expect_result, lld1.equals(lld2));
+    }
+
+    @Test
+    public void emptyTest() {
+        ArrayDeque<Integer> lld1 = new ArrayDeque<Integer>();
+        for (int i = 0; i < 12; ++i) {
+            lld1.addFirst(i);
+        }
+        while (!lld1.isEmpty()) {
+            lld1.removeFirst();
+        }
+        Integer i1=lld1.get(3);
+        assertEquals(null, i1);
     }
 }
