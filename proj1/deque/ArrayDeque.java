@@ -116,23 +116,22 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     @Override
     public boolean equals(Object o) {
         Deque other;
+        Iterator<T> iter2;
         if (o instanceof ArrayDeque) {
             other = (ArrayDeque) o;
+            iter2 = ((ArrayDeque) other).iterator();
         } else if (o instanceof LinkedListDeque) {
             other = (LinkedListDeque) o;
+            iter2 = ((LinkedListDeque) other).iterator();
         } else {
             return false;
         }
+
         if (this.size() != other.size()) {
             return false;
         }
+
         Iterator<T> iter1 = iterator();
-        Iterator<T> iter2;
-        if (o instanceof ArrayDeque) {
-            iter2 = ((ArrayDeque) other).iterator();
-        } else {
-            iter2 = ((LinkedListDeque) other).iterator();
-        }
         while (iter1.hasNext()) {
             if (!(iter1.next().equals(iter2.next()))) {
                 return false;
@@ -143,20 +142,23 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
     private class ArrayDequeIterator implements Iterator<T> {
         int index;
+        int itersize;
 
         ArrayDequeIterator() {
             index = (nextFirst + 1) % maxsize;
+            itersize = size;
         }
 
         @Override
         public boolean hasNext() {
-            return index != nextLast;
+            return itersize > 0;
         }
 
         @Override
         public T next() {
             T v = item[index];
             index = (index + 1) % maxsize;
+            itersize--;
             return v;
         }
     }
@@ -165,4 +167,14 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     public Iterator<T> iterator() {
         return new ArrayDequeIterator();
     }
+
+    //    @Override
+    //    public String toString() {
+    //        StringBuilder str = new StringBuilder();
+    //        for (T t : this) {
+    //            str.append(t.toString());
+    //            str.append(" ");
+    //        }
+    //        return str.toString();
+    //    }
 }
