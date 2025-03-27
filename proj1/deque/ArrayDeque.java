@@ -26,7 +26,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             temp[i] = item[(i + nextFirst + 1) % maxsize];
         }
         nextFirst = newsize - 1;
-        nextLast = size;
+        nextLast = size % newsize; //取模是为了在缩小maxsize的时候把nextlast放在索引0的位置
         item = temp;
         return newsize;
     }

@@ -166,7 +166,23 @@ public class ArrayDequeTest {
         while (!lld1.isEmpty()) {
             lld1.removeFirst();
         }
-        Integer i1=lld1.get(3);
+        Integer i1 = lld1.get(3);
         assertEquals(null, i1);
+    }
+
+    @Test
+    public void resizeTest() {
+        ArrayDeque<Integer> lld1 = new ArrayDeque<Integer>();
+        for (int i = 0; i < 22; ++i) {
+            if (i % 2 == 0) {
+                lld1.addFirst(i);
+            } else {
+                lld1.addLast(i);
+            }
+        }
+        while (!lld1.isEmpty()) {
+            lld1.removeFirst();
+        }
+        assertEquals(null,lld1.get(3));
     }
 }
