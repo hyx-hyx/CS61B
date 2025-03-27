@@ -115,21 +115,30 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
     @Override
     public boolean equals(Object o) {
-        Iterator<T> iter1 = iterator();
+        Deque other;
         if (o instanceof ArrayDeque) {
-            ArrayDeque other = (ArrayDeque) o;
-            if (this.size() != other.size()) {
+            other = (ArrayDeque) o;
+        } else if (o instanceof LinkedListDeque) {
+            other = (LinkedListDeque) o;
+        } else {
+            return false;
+        }
+        if (this.size() != other.size()) {
+            return false;
+        }
+        Iterator<T> iter1 = iterator();
+        Iterator<T> iter2;
+        if (o instanceof ArrayDeque) {
+            iter2 = ((ArrayDeque) other).iterator();
+        } else {
+            iter2 = ((LinkedListDeque) other).iterator();
+        }
+        while (iter1.hasNext()) {
+            if (!(iter1.next().equals(iter2.next()))) {
                 return false;
             }
-            Iterator<T> iter2 = other.iterator();
-            while (iter1.hasNext()) {
-                if (!(iter1.next().equals(iter2.next()))) {
-                    return false;
-                }
-            }
-            return true;
         }
-        return false;
+        return true;
     }
 
     private class ArrayDequeIterator implements Iterator<T> {
@@ -147,7 +156,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         @Override
         public T next() {
             T v = item[index];
-            index++;
+            index = (index + 1) % maxsize;
             return v;
         }
     }

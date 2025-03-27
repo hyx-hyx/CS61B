@@ -140,21 +140,21 @@ public class ArrayDequeTest {
     @Test
     public void equalTrueTest() {
         Boolean expect_result = true;
-        ArrayDeque<Integer> lld1 = new ArrayDeque<Integer>();
-        ArrayDeque<Integer> lld2 = new ArrayDeque<Integer>();
-        lld1.addFirst(1);
+        Deque<Integer> ad1 = new ArrayDeque<Integer>();
+        Deque<Integer> lld2 = new LinkedListDeque<Integer>();
+        ad1.addFirst(1);
         lld2.addFirst(1);
-        assertEquals(expect_result, lld1.equals(lld2));
+        assertEquals(expect_result, lld2.equals(ad1));
     }
 
     @Test
     public void equalFalseTest() {
         Boolean expect_result = false;
-        ArrayDeque<Integer> lld1 = new ArrayDeque<Integer>();
-        ArrayDeque<Integer> lld2 = new ArrayDeque<Integer>();
-        lld1.addFirst(1);
+        ArrayDeque<Integer> ad1 = new ArrayDeque<Integer>();
+        LinkedListDeque<Integer> lld2 = new LinkedListDeque<Integer>();
+        ad1.addFirst(1);
         lld2.addFirst(2);
-        assertEquals(expect_result, lld1.equals(lld2));
+        assertEquals(expect_result, lld2.equals(ad1));
     }
 
     @Test
