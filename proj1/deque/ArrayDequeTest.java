@@ -138,13 +138,58 @@ public class ArrayDequeTest {
     }
 
     @Test
-    public void equalTrueTest() {
+    public void iteratorTest() {
+        Deque<Integer> ad1 = new ArrayDeque<>();
+        for (int i = 0; i < 16; ++i) {
+            ad1.addFirst(i);
+            System.out.print(ad1);
+        }
+        System.out.println();
+        System.out.println(ad1);
+    }
+
+    @Test
+    public void equalBasicTrueTest() {
         Boolean expect_result = true;
-        Deque<Integer> ad1 = new ArrayDeque<Integer>();
-        Deque<Integer> lld2 = new LinkedListDeque<Integer>();
-        ad1.addFirst(1);
-        lld2.addFirst(1);
+        Deque<Integer> ad1 = new ArrayDeque<>();
+        Deque<Integer> lld2 = new LinkedListDeque<>();
+
         assertEquals(expect_result, lld2.equals(ad1));
+        assertEquals(expect_result, ad1.equals(lld2));
+
+        for (int i = 0; i < 16; ++i) {
+            ad1.addFirst(i);
+            lld2.addFirst(i);
+            assertEquals(expect_result, lld2.equals(ad1));
+            assertEquals(expect_result, ad1.equals(lld2));
+        }
+        System.out.println(ad1);
+        System.out.println(lld2);
+        while (ad1.size() > 0) {
+            ad1.removeFirst();
+            lld2.removeFirst();
+            assertEquals(expect_result, lld2.equals(ad1));
+            assertEquals(expect_result, ad1.equals(lld2));
+        }
+    }
+
+    @Test
+    public void equalRefTrueTest() {
+        Boolean expect_result = true;
+
+        Deque<Integer> ad1 = new ArrayDeque<Integer>();
+        Deque<Integer> lld1 = new LinkedListDeque<Integer>();
+
+        Deque<Deque> ad2 = new ArrayDeque<Deque>();
+        Deque<Deque> lld2 = new LinkedListDeque<Deque>();
+
+        ad2.addFirst(lld1);
+        lld2.addLast(ad1);
+
+        assertEquals(expect_result, lld2.equals(ad2));
+        assertEquals(expect_result, ad2.equals(lld2));
+
+
     }
 
     @Test
@@ -153,8 +198,30 @@ public class ArrayDequeTest {
         ArrayDeque<Integer> ad1 = new ArrayDeque<Integer>();
         LinkedListDeque<Integer> lld2 = new LinkedListDeque<Integer>();
         ad1.addFirst(1);
+        ad1.removeFirst();
         lld2.addFirst(2);
         assertEquals(expect_result, lld2.equals(ad1));
+    }
+
+
+    @Test
+    public void equalTest() {
+        Deque<Integer> ad1 = new ArrayDeque<>();
+        Deque<Integer> lld1 = new LinkedListDeque<>();
+        ad1.addFirst(1);
+        ad1.addLast(2);
+        ad1.removeFirst();
+        lld1.addFirst(2);
+
+        java.util.Deque<Integer> ad2 = new java.util.ArrayDeque<>();
+        java.util.Deque<Integer> lld2 = new java.util.ArrayDeque<>();
+        ad2.addFirst(1);
+        ad2.addLast(2);
+        ad2.removeFirst();
+        lld2.addFirst(2);
+        lld2.equals(ad2);
+
+        assertEquals(lld2.equals(ad2), lld1.equals(ad1));
     }
 
     @Test
@@ -183,6 +250,6 @@ public class ArrayDequeTest {
         while (!lld1.isEmpty()) {
             lld1.removeFirst();
         }
-        assertEquals(null,lld1.get(3));
+        assertEquals(null, lld1.get(3));
     }
 }
