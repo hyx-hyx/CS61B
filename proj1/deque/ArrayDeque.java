@@ -116,7 +116,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     @Override
     public boolean equals(Object o) {
         Deque other;
-        Iterator<T> iter2;
+        Iterator iter2;
         if (o instanceof ArrayDeque) {
             other = (ArrayDeque) o;
             iter2 = ((ArrayDeque) other).iterator();
@@ -131,7 +131,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             return false;
         }
 
-        Iterator<T> iter1 = iterator();
+        Iterator iter1 = iterator();
         while (iter1.hasNext()) {
             if (!(iter1.next().equals(iter2.next()))) {
                 return false;
@@ -168,13 +168,13 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         return new ArrayDequeIterator();
     }
 
-    //    @Override
-    //    public String toString() {
-    //        StringBuilder str = new StringBuilder();
-    //        for (T t : this) {
-    //            str.append(t.toString());
-    //            str.append(" ");
-    //        }
-    //        return str.toString();
-    //    }
+    @Override
+    public String toString() {
+        StringBuilder str = new StringBuilder();
+        for (T t : this) {
+            str.append(t.toString());
+            str.append(" ");
+        }
+        return str.toString();
+    }
 }

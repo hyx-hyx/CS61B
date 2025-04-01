@@ -128,7 +128,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
 
     public boolean equals(Object o) {
         Deque other;
-        Iterator<T> iter2;
+        Iterator iter2;
         if (o instanceof ArrayDeque) {
             other = (ArrayDeque) o;
             iter2 = ((ArrayDeque) other).iterator();
@@ -143,7 +143,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
             return false;
         }
 
-        Iterator<T> iter1 = iterator();
+        Iterator iter1 = iterator();
         while (iter1.hasNext()) {
             if (!(iter1.next().equals(iter2.next()))) {
                 return false;
@@ -167,14 +167,14 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         return getRecursiveHelper(cur, index);
     }
 
-    //    @Override
-    //    private String toString() {
-    //        StringBuilder str = new StringBuilder();
-    //        for (T t : this) {
-    //            str.append(t.toString());
-    //            str.append(" ");
-    //        }
-    //        return str.toString();
-    //    }
+    @Override
+    public String toString() {
+        StringBuilder str = new StringBuilder();
+        for (T t : this) {
+            str.append(t.toString());
+            str.append(" ");
+        }
+        return str.toString();
+    }
 
 }

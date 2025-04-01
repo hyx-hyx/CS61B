@@ -147,11 +147,27 @@ public class LinkedListDequeTest {
     @Test
     public void equalFalseTest(){
         Boolean expect_result=false;
-        LinkedListDeque<Integer>  lld1 = new LinkedListDeque<Integer>();
-        LinkedListDeque<Integer>  lld2 = new LinkedListDeque<Integer>();
-        lld1.addFirst(1);
-        lld2.addFirst(2);
+        LinkedListDeque<String>  lld1 = new LinkedListDeque<>();
+        LinkedListDeque<String>  lld2 = new LinkedListDeque<>();
+        lld1.addFirst("asd");
+        lld2.addFirst("as");
         assertEquals(expect_result,lld1.equals(lld2));
+    }
+
+    @Test
+    public void iteratorBasicTest() {
+        Boolean expect_result = false;
+        LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();
+        for(int i=0;i<16;++i) {
+            lld1.addFirst(i);
+            System.out.print(lld1);
+            System.out.println();
+        }
+        lld1.removeFirst();
+        lld1.addLast(32);
+        System.out.print(lld1);
+        System.out.println();
+        System.out.println(lld1.get(0));
     }
 }
 

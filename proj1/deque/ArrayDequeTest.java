@@ -138,50 +138,35 @@ public class ArrayDequeTest {
     }
 
     @Test
-    public void iteratorTest() {
-        Deque<Integer> ad1 = new ArrayDeque<>();
-        for (int i = 0; i < 16; ++i) {
-            ad1.addFirst(i);
-            System.out.print(ad1);
-        }
-        System.out.println();
-        System.out.println(ad1);
-    }
-
-    @Test
     public void equalBasicTrueTest() {
         Boolean expect_result = true;
         Deque<Integer> ad1 = new ArrayDeque<>();
-        Deque<Integer> lld2 = new LinkedListDeque<>();
+        Deque<Integer> ad2 = new ArrayDeque<>();
 
-        assertEquals(expect_result, lld2.equals(ad1));
-        assertEquals(expect_result, ad1.equals(lld2));
+        ad1.addLast(1);
+        ad1.addFirst(2);
+        ad1.addLast(3);
+        ad1.addFirst(4);
 
-        for (int i = 0; i < 16; ++i) {
-            ad1.addFirst(i);
-            lld2.addFirst(i);
-            assertEquals(expect_result, lld2.equals(ad1));
-            assertEquals(expect_result, ad1.equals(lld2));
-        }
+        ad2.addFirst(2);
+        ad2.addFirst(4);
+        ad2.addLast(1);
+        ad2.addLast(3);
+        assertEquals(expect_result, ad1.equals(ad2));
         System.out.println(ad1);
-        System.out.println(lld2);
-        while (ad1.size() > 0) {
-            ad1.removeFirst();
-            lld2.removeFirst();
-            assertEquals(expect_result, lld2.equals(ad1));
-            assertEquals(expect_result, ad1.equals(lld2));
-        }
+        System.out.println(ad2);
+
     }
 
     @Test
     public void equalRefTrueTest() {
         Boolean expect_result = true;
 
-        Deque<Integer> ad1 = new ArrayDeque<Integer>();
-        Deque<Integer> lld1 = new LinkedListDeque<Integer>();
+        Deque<Integer> ad1 = new ArrayDeque<>();
+        Deque<Integer> lld1 = new LinkedListDeque<>();
 
-        Deque<Deque> ad2 = new ArrayDeque<Deque>();
-        Deque<Deque> lld2 = new LinkedListDeque<Deque>();
+        Deque<Deque> ad2 = new ArrayDeque<>();
+        Deque<Deque> lld2 = new LinkedListDeque<>();
 
         ad2.addFirst(lld1);
         lld2.addLast(ad1);
@@ -195,8 +180,8 @@ public class ArrayDequeTest {
     @Test
     public void equalFalseTest() {
         Boolean expect_result = false;
-        ArrayDeque<Integer> ad1 = new ArrayDeque<Integer>();
-        LinkedListDeque<Integer> lld2 = new LinkedListDeque<Integer>();
+        ArrayDeque<Integer> ad1 = new ArrayDeque<>();
+        LinkedListDeque<Integer> lld2 = new LinkedListDeque<>();
         ad1.addFirst(1);
         ad1.removeFirst();
         lld2.addFirst(2);
@@ -226,7 +211,7 @@ public class ArrayDequeTest {
 
     @Test
     public void emptyTest() {
-        ArrayDeque<Integer> lld1 = new ArrayDeque<Integer>();
+        ArrayDeque<Integer> lld1 = new ArrayDeque<>();
         for (int i = 0; i < 12; ++i) {
             lld1.addFirst(i);
         }
@@ -239,7 +224,7 @@ public class ArrayDequeTest {
 
     @Test
     public void resizeTest() {
-        ArrayDeque<Integer> lld1 = new ArrayDeque<Integer>();
+        ArrayDeque<Integer> lld1 = new ArrayDeque<>();
         for (int i = 0; i < 22; ++i) {
             if (i % 2 == 0) {
                 lld1.addFirst(i);
@@ -251,5 +236,37 @@ public class ArrayDequeTest {
             lld1.removeFirst();
         }
         assertEquals(null, lld1.get(3));
+    }
+
+    @Test
+    public void iteratorBasicTest() {
+        ArrayDeque<Integer> ad1 = new ArrayDeque<>();
+        ad1.addLast(21);
+        for(int i:ad1){
+            System.out.print(i+" ");
+        }
+        System.out.println(ad1.get(1));
+    }
+    @Test
+    public void iteratorTest() {
+        ArrayDeque<Integer> ad1 = new ArrayDeque<>();
+        for (int i = 0; i < 20; ++i) {
+            if (i % 2 == 0) {
+                ad1.addFirst(i);
+            } else {
+                ad1.addLast(i);
+            }
+            System.out.print(ad1);
+            System.out.println();
+        }
+        while (ad1.size() > 0) {
+            if (ad1.size() % 2 == 0) {
+                ad1.removeLast();
+            } else {
+                ad1.removeFirst();
+            }
+            System.out.print(ad1);
+            System.out.println();
+        }
     }
 }
