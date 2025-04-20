@@ -11,7 +11,7 @@ SHELL = /bin/bash
 JFLAGS = -ea
 
 # See comment in ../Makefile
-PYTHON = python3
+PYTHON = python
 
 RMAKE = "$(MAKE)"
 
@@ -31,8 +31,8 @@ default:
 	$(RMAKE) PYTHON=$(PYTHON) check
 
 check:
-	@CLASSPATH=..:$(CLASSPATH) java -ea capers.Main >/dev/null 2>&1 || true
-	@echo "Testing application capers.Main..."
+	@CLASSPATH=..:$(CLASSPATH) java -ea Main >/dev/null 2>&1 || true
+	@echo "Testing application Main..."
 	$(TESTER) $(TESTER_FLAGS) --src=$(SRCDIR) $(TESTS)
 
 # 'make clean' will clean up stuff you can reconstruct.
